@@ -1,72 +1,34 @@
-package two;
+package appl;
 
+import java.util.Calendar;
 import java.util.Scanner;
-import java.util.StringTokenizer;
-import java.util.ArrayList;
 
-class Location{
-	
-	public static void OutPut(ArrayList<String>li) {
-		int i = 0;
-			for(; i<li.size();i++) {
-				System.out.printf("%s %15.1f %15.1f\n",li.get(i), Double.parseDouble(li.get(++i)), Double.parseDouble(li.get(++i)));
-			}
-		System.out.println("----------------------------------------------------");
-	}
-	
-	public static void Input(ArrayList<String>li, String loc, StringTokenizer st) {
-		for(int i=0; i<4; i++) {
-			System.out.print(">>");
-			loc = scanner.nextLine();
-			st = new StringTokenizer(loc, ", ");
-			
-			while(st.hasMoreTokens()) { li.add(st.nextToken()); }
-		}
-	}
-	
-	static Scanner scanner = new Scanner(System.in);
-	static String loc;
-	static ArrayList <String> li = new ArrayList<String> ();
-	static StringTokenizer st;
-	
-	public static void run() {
-		System.out.println("도시,경도,위도를 입력하세요.");
-		String city;
-		
-		Input(li ,loc, st);
-		System.out.println("----------------------------------------------------");
-		OutPut(li);
-		while(true) {
-			System.out.print("도시 이름>>");
-			city = scanner.next();
-			
-			if(city.equals("그만")){ break; }
-			LocationManager.Search(li,city);
-		}
-	}
-	
-}
-
-class LocationManager{
-	static String cityName;
-		
-		public static void Search(ArrayList<String>li, String cityName) {
-			if(li.contains(cityName)) {
-				for(int i=0; i<li.size(); i++) {
-					if(li.get(i).equals(cityName)) {
-						System.out.printf("%s %15.1f %15.1f\n", cityName, Double.parseDouble(li.get(i+1)), Double.parseDouble(li.get(i+2)));
-						break;
-					}
-				}
-			}
-			else {
-				System.out.println(cityName + "은 없습니다.");
-				return;
-			}
-		}
-}
-public class report_07_2 {
+public class Exam_8 {
 	public static void main(String[] args) {
-		Location.run();
+		Scanner scn = new Scanner(System.in);
+		
+		Calendar today = Calendar.getInstance();
+				
+		System.out.print("오늘은"+ today.get(Calendar.YEAR)+ "년 "
+				+ (today.get(Calendar.MONTH)+1)+"월 "
+				+ today.get(Calendar.DAY_OF_MONTH)+"일입니다.");
+		System.out.print("생일 입력(년 월 일) >>");
+		int year = scn.nextInt();
+		int month = scn.nextInt();
+		int day = scn.nextInt();
+		
+		Calendar birth = Calendar.getInstance();
+		birth.set(year, month-1, day, 0, 0, 0);
+		
+		long millisBirth = birth.getTimeInMillis();
+		long millisToday = today.getTimeInMillis();
+		
+		long diffMillis = millisToday - millisBirth;
+		long days = diffMillis / (1000*60*60*24) + 1;
+		
+		System.out.println("오늘까지 " + days + "살아왔습니다.");
+		
+		
+		scn.close();
 	}
 }
