@@ -1,28 +1,36 @@
 /*
  * 실습문제 2
- * BorderLayout을 사용하여 실행 결과와 같이 동서남북에 각각 버튼을 배치하고 이들 사이의 수평 수직 간격이
- * 각각 5픽셀, 7픽셀이 되도록 스윙 응용프로그램을 작성하라. (East, West, North, South, Center)
+ * 실행 예시와 같이 JComboBox로 빈 콤보박스를 만들고, JTextField 입력 창에 문자열을
+ * 입력한 후 <Enter> 키를 입력하면 문자열을 콤보박스의 아이템으로 삽입하라.
  */
 
-package gui;
+package Exam;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.*;
 
 public class Exam_2 {
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("BorderLayout Example");
+		JFrame frame = new JFrame("콤보박스 추가");
+		frame.setSize(300,200);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		BorderLayout layout = new BorderLayout(5,7);
-		frame.setLayout(layout);
+		frame.setLayout(null);
 		
-		frame.add(new JButton("North"), BorderLayout.NORTH);
-		frame.add(new JButton("South"), BorderLayout.SOUTH);
-		frame.add(new JButton("East"), BorderLayout.EAST);
-		frame.add(new JButton("West"), BorderLayout.WEST);
-		frame.add(new JButton("Center"), BorderLayout.CENTER);
+		JComboBox<String> comboBox = new JComboBox<>();
+		comboBox.setBounds(50,30,200,30);
+		frame.add(comboBox);
 		
-		frame.setSize(400, 200);
+		JTextField textField = new JTextField();
+		textField.setBounds(50,70,200,30);
+		frame.add(textField);
+		
+		textField.addActionListener(e->{
+			String input = textField.getText().trim();
+			if(!input.isEmpty()) {
+				comboBox.addItem(input);
+				textField.setText("");
+			}
+		});
 		frame.setVisible(true);
 	}
 }
