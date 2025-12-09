@@ -1,9 +1,3 @@
-/*
- * 실습문제 2
- * 실행 예시와 같이 JComboBox로 빈 콤보박스를 만들고, JTextField 입력 창에 문자열을
- * 입력한 후 <Enter> 키를 입력하면 문자열을 콤보박스의 아이템으로 삽입하라.
- */
-
 package Exam;
 
 import javax.swing.*;
