@@ -1,27 +1,78 @@
-package chapter_8;
+package Chapter_10;
 
-import java.io.*;
-import java.util.*;
+import javax.swing.*;
+import javax.swing.text.GapContent;
 
-public class report_04 {
+import java.awt.*;
+import java.awt.event.*;
+
+public class Exam_4 {
 	public static void main(String[] args) {
-		Scanner scanner = null;
-		try {
-			scanner = new Scanner(new FileReader("c:\\windows\\system.ini"));
-			int c = 1;
-			System.out.println("c:\\windows\\system.ini 파일을 읽어 출력합니다.");
-			
-			while(scanner.hasNext()) {
-				String line = scanner.nextLine();
-				System.out.printf("%4d: ", c++);
-				System.out.println(line);
+		JFrame frame = new JFrame("블록 이동");
+		frame.setSize(400,400);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel panel = new JPanel() {
+			int x = 150;
+			int y = 150;
+			final int SIZE = 50;
+			{
+				setBackground(Color.LIGHT_GRAY);
+				setFocusable(true);
+				requestFocus();
+				
+				addKeyListener(new KeyAdapter() {
+					public void keyPressed(KeyEvent e) {
+						int key = e.getKeyCode();
+						switch(key) {
+						case KeyEvent.VK_LEFT:
+							x = Math.max(0,  x-SIZE);
+							break;
+						case KeyEvent.VK_RIGHT:
+							x = Math.min(getWidth()-SIZE, x+SIZE);
+							break;
+						case KeyEvent.VK_UP:
+							y=Math.max(0, y-SIZE);
+							break;
+						case KeyEvent.VK_DOWN:
+							y= Math.min(getHeight()-SIZE, y+SIZE);
+							break;
+						}
+						repaint();
+					}
+				});
 			}
-		}
-		catch(FileNotFoundException e) {
-			System.out.println("파일을 찾을 수 없습니다." + e.getMessage());
-		}
-		finally {
-			scanner.close();
-		}
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(Color.BLUE);
+				g.fillRect(x,y,SIZE,SIZE);
+				for (int i = 0; i < getWidth(); i += SIZE) {
+				    for (int j = 0; j < getHeight(); j += SIZE) {
+				        g.setColor(Color.GRAY);
+				        g.drawRect(i, j, SIZE, SIZE);
+				    }
+				}
+
+			}
+		};
+		
+		frame.add(panel);
+		frame.setVisible(true);
+		panel.requestFocusInWindow();
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
