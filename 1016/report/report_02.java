@@ -1,39 +1,69 @@
-package main;
-class Book{
-	protected String author;
-	protected String bookName;
-	protected String Buyer;
-	
-	public Book(String author, String bookName, String Buyer) { 
-		this.author = author; this.bookName = bookName; this.Buyer = Buyer;
-	}
-	public String toString() { return Buyer + "이 구입한 도서: " + author + "의 " + bookName; }
-}
+package generic;
 
-class BookApp extends Book{
-	
-	public BookApp(String author, String bookName, String Buyer) {
-		super(author, bookName, Buyer);
-	}
-	
-	public boolean equals(Object obj) {
-		BookApp ba = (BookApp) obj;
-		if(author.equals(ba.author) && bookName.equals(ba.bookName)) return true;
-		else return false;
-	}
-}
+import java.util.Scanner;
+import java.util.Vector;
 
+public class Exam_2 {
+	private Vector<Integer> v = new Vector<Integer>();//멤버 변수
 
-public class report_02 {
-	public static void main(String[] args) {
-		Book a = new Book("황기태", "명품자바", "김하진");
-		Book b = new Book("황기태", "명품자바", "하여린");
-		System.out.println(a);
-		System.out.println(b);
-		if(a.equals(b)) {
-			System.out.println("같은 책");
+	public void read() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("정수를 입력하세요. 0을 입력하면 종료");
+		
+		while(true) {
+			System.out.print("입력 >> ");
+			int num = scanner.nextInt();
+			if(num == 0) break;
+			v.add(num);
 		}
-		else
-			System.out.println("다른 책");
+		scanner.close();
+	}
+	public void changeToZero() {
+		for(int i = 0; i<v.size(); i++) {
+			if(v.get(i)<0) {
+				v.set(i,0);
+			}
+		}
+	}
+	public void showAll() {
+		for(int i=0; i<v.size(); i++) {
+			System.out.print(v.get(i));
+		}
+		System.out.println();
+	}
+	public int add() {
+		int sum = 0;
+		for(int i=0; i<v.size(); i++) {
+			if(v.get(i)>0) {
+				sum+=v.get(i);
+			}
+		}
+		return sum;
+	}
+	
+	
+	public static void main(String[] args) {
+		Exam_2 sp = new Exam_2();
+		sp.read();
+		sp.changeToZero();
+		System.out.print("음수를 0으로 바꾸면 ");
+		sp.showAll();
+		System.out.println("양수들의 합은 " + sp.add());
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
