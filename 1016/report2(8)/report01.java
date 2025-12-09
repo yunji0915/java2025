@@ -1,36 +1,47 @@
-package chapter_8;
+package Chapter_10;
 
-import java.util.Scanner;
-import java.io.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-public class report_01 {
+public class Exam_1 {
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		FileWriter fout = null;
+		JFrame frame = new JFrame("Mouse Event Example");
+		frame.setSize(300,200);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new FlowLayout());
 		
-		System.out.println("전화번호 입력 프로그램입니다.");
-		while(true) {
-			
-			try {
-				System.out.print("이름 전화번호 >>");
-				String line = scanner.nextLine();
-				
-				if(line.equals("그만")) {
-					System.out.println("c:\\Temp\\phone.txt에 저장하였습니다.");
-					break;
-				}
-				
-			fout = new FileWriter("c:\\Temp\\phone.txt", true);
-			
-			
+		JLabel label = new JLabel("사랑해 자바");
+		frame.add(label);
 		
-			fout.write(line + "\r\n");
-			
-			fout.close();
-			}catch(IOException e) {
-				System.out.println("입출력 오류");
+		label.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				label.setText("Love Java");
 			}
-		}
-		scanner.close();
-	}
+			public void mouseExited(MouseEvent e) {
+				label.setText("사랑해 자바");
+			}
+		});
+		
+		frame.setVisible(true);
+	} 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
