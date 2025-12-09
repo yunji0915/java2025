@@ -1,64 +1,54 @@
-import java.util.ArrayList;
+package appl;
+
+import java.util.Random;
 import java.util.Scanner;
 
-class Duplication{
-	Scanner scanner = new Scanner (System.in);
-	ArrayList<String> al = new ArrayList<String>();
-	
-	private void copyArrayList(String input) {
+public class Exam_10 {
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		Random rand = new Random();
 		
-		String[] inputArray = input.split(" ");
-		
-
-		for(int i=0; i<inputArray.length; i++) {
-			al.add(inputArray[i]);
-		}
-		for(int i=0; i<al.size(); i++) {
-			searchAndRemove(al.get(i), i+1);
-		}
-		
-	}
-	
-	private void searchAndRemove(String src, int j) {
-		while(j < al.size()) {
-			String dest = al.get(j);
-			if(src.equals(dest)) 
-				al.remove(j);
-			else
-				j++;
-		}
-	}
-	
-	private void arrayListGet(ArrayList<String> al) {
-		for(int i=0; i<al.size(); i++) {
-			System.out.print(al.get(i) + " ");
-		}
-		System.out.println();
-	}
-	public void run() {
+		String[] words = {"happy", "morning", "package", "together"};
+		System.out.println("10초 안에 단어를 맞추세요!!");
 		
 		while(true) {
+			String original = words[rand.nextInt(words.length)];
+			String shuffled = shuffleWord(original, rand);
 			
-			System.out.print("문자열들을 입력하세요>");
-			String input = scanner.nextLine();
+			System.out.println(shuffled);
+			System.out.print(">>");
 			
-			if(input.equals("그만")) {
-				break; 
+			long start = System.currentTimeMillis();
+			String answer = scn.nextLine();
+			long end = System.currentTimeMillis();
+			
+			if(answer.equalsIgnoreCase("그만")) {
+				System.out.println("게임을 종료합니다.");
+				break;
 			}
 			
-			copyArrayList(input);
-			arrayListGet(al);
-			al.clear();
-	}
-}
-
-public class report_10 {
-	public static void main(String[] args) {
-		Duplication dd = new Duplication();
-		
-		dd.run();
+			long elapsed = (end - start) / 1000;
 			
-			
+			if(elapsed >10) {
+				System.out.println("시간 초과! [" +elapsed + "초]");
+			}else if(answer.equalsIgnoreCase(original)) {
+				System.out.println("정답입니다. ["+ elapsed + "초]");
+			}else {
+				System.out.println("오답입니다. 정답은 "+original+" 입니다.");
+			}
 		}
+		scn.close();
 	}
+	
+	public static String shuffleWord(String word, Random rand) {
+		char[] chars = word.toCharArray();
+		for(int i = 0; i<chars.length; i++) {
+			int j = rand.nextInt(chars.length);
+			char temp = chars[i];
+			chars[i] = chars[j];
+			chars[j] = temp;
+		}
+		return new String(chars);
+	}
+	
 }
